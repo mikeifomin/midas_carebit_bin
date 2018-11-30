@@ -1,0 +1,1 @@
+https://github.com/carebitcoin/carebitcoin/raw/master/doc/masternode-install.sh

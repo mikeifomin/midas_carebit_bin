@@ -1,7 +1,15 @@
-FROM mikeifomin/midas_coins_base
+FROM mikeifomin/midas_wallet_base:v1
 
-COPY ./carebitcoind /usr/local/bin/coind
-COPY ./carebitcoin-cli /usr/local/bin/coin-cli
+WORKDIR /usr/local/bin
 
+COPY ./carebitcoind .
+COPY ./carebitcoin-cli .
+
+RUN chmod +x ./* && \
+    ln carebitcoind walletd && \
+    ln carebitcoin-cli wallet-cli
+
+VOLUME ["/root/.carebitcoin"]
 EXPOSE 9192
 
+RUN walletd --help || exit $(($? == 127))
